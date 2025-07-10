@@ -323,13 +323,13 @@ export default function NotesViewer() {
                     className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50 dark:border-gray-700/50 p-8 hover:shadow-2xl transition-all cursor-pointer group hover:-translate-y-1"
                     onClick={() => openNoteModal(note)}
                   >
-                    <div className="flex items-start justify-between mb-6">
+                    <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-6 gap-4">
                       <div className="flex-1">
-                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors break-words">
                           {note.title}
                         </h3>
                         
-                        <div className="flex items-center space-x-6 text-sm text-gray-500 dark:text-gray-400 mb-4">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 text-sm text-gray-500 dark:text-gray-400 mb-4">
                           <div className="flex items-center">
                             <Calendar className="w-4 h-4 mr-2" />
                             {new Date(note.createdAt).toLocaleDateString()}
@@ -342,11 +342,11 @@ export default function NotesViewer() {
 
                         {/* Tags */}
                         {note.tags.length > 0 && (
-                          <div className="flex flex-wrap gap-2 mb-4">
+                          <div className="flex flex-wrap gap-2 mb-4 max-w-full">
                             {note.tags.map((tagName) => (
                               <span
                                 key={tagName}
-                                className="px-3 py-1 rounded-full text-xs font-semibold text-white shadow-lg"
+                                className="px-3 py-1 rounded-full text-xs font-semibold text-white shadow-lg break-all"
                                 style={{ backgroundColor: getTagColor(tagName) }}
                               >
                                 {tagName}
@@ -356,7 +356,7 @@ export default function NotesViewer() {
                         )}
                       </div>
 
-                      <div className="flex items-center space-x-2 ml-6">
+                      <div className="flex items-center space-x-2 sm:ml-6 flex-shrink-0">
                         <motion.button
                           onClick={(e) => {
                             e.stopPropagation();
@@ -400,14 +400,15 @@ export default function NotesViewer() {
                     <AnimatePresence>
                       {note.isRevealed && (
                         <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: 'auto' }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.3 }}
+                          initial={{ opacity: 0, maxHeight: 0, paddingTop: 0, paddingBottom: 0, marginBottom: 0 }}
+                          animate={{ opacity: 1, maxHeight: 500, paddingTop: 24, paddingBottom: 24, marginBottom: 24 }}
+                          exit={{ opacity: 0, maxHeight: 0, paddingTop: 0, paddingBottom: 0, marginBottom: 0 }}
+                          transition={{ duration: 0.4, ease: "easeInOut" }}
                           className="mb-6"
+                          style={{ overflow: 'hidden' }}
                         >
-                          <div className="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-inner">
-                            <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">
+                          <div className="bg-gray-50 dark:bg-gray-700 rounded-xl p-4 sm:p-6 shadow-inner">
+                            <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed break-words overflow-wrap-anywhere">
                               {note.content}
                             </p>
                           </div>
@@ -416,15 +417,15 @@ export default function NotesViewer() {
                     </AnimatePresence>
 
                     {/* Difficulty Controls */}
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                      <div className="flex items-center space-x-3 flex-wrap">
                         <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">Difficulty:</span>
                         <span className={`px-4 py-2 rounded-xl text-sm font-semibold border-2 ${difficultyColors[note.difficulty]}`}>
                           {note.difficulty}
                         </span>
                       </div>
 
-                      <div className="flex items-center space-x-3">
+                      <div className="flex items-center space-x-3 flex-wrap">
                         <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">Update:</span>
                         {(['Easy', 'Medium', 'Difficult'] as DifficultyLevel[]).map((level) => (
                           <motion.button
@@ -433,7 +434,7 @@ export default function NotesViewer() {
                               e.stopPropagation();
                               updateDifficulty(note.id, level);
                             }}
-                            className={`w-10 h-10 rounded-xl ${difficultyOptions[level].color} ${difficultyOptions[level].hoverColor} transition-colors shadow-lg ${
+                            className={`w-8 h-8 sm:w-10 sm:h-10 rounded-xl ${difficultyOptions[level].color} ${difficultyOptions[level].hoverColor} transition-colors shadow-lg ${
                               note.difficulty === level ? 'ring-4 ring-offset-2 ring-gray-400 dark:ring-offset-gray-800' : ''
                             }`}
                             whileHover={{ scale: 1.1 }}
@@ -462,16 +463,16 @@ export default function NotesViewer() {
                       <th className="px-8 py-6 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                         Title
                       </th>
-                      <th className="px-8 py-6 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                      <th className="hidden md:table-cell px-8 py-6 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                         Category
                       </th>
                       <th className="px-8 py-6 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                         Difficulty
                       </th>
-                      <th className="px-8 py-6 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                      <th className="hidden lg:table-cell px-8 py-6 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                         Tags
                       </th>
-                      <th className="px-8 py-6 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                      <th className="hidden sm:table-cell px-8 py-6 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                         Created
                       </th>
                       <th className="px-8 py-6 text-right text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
@@ -492,11 +493,11 @@ export default function NotesViewer() {
                           onClick={() => openNoteModal(note)}
                         >
                           <td className="px-8 py-6">
-                            <div className="text-sm font-semibold text-gray-900 dark:text-white truncate max-w-xs group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                            <div className="text-sm font-semibold text-gray-900 dark:text-white break-words max-w-xs group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                               {note.title}
                             </div>
                           </td>
-                          <td className="px-8 py-6">
+                          <td className="hidden md:table-cell px-8 py-6">
                             <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
                               {note.category}
                             </div>
@@ -506,7 +507,7 @@ export default function NotesViewer() {
                               {note.difficulty}
                             </span>
                           </td>
-                          <td className="px-8 py-6">
+                          <td className="hidden lg:table-cell px-8 py-6">
                             <div className="flex flex-wrap gap-1">
                               {note.tags.slice(0, 2).map((tagName) => (
                                 <span
@@ -524,34 +525,34 @@ export default function NotesViewer() {
                               )}
                             </div>
                           </td>
-                          <td className="px-8 py-6 text-sm text-gray-600 dark:text-gray-400 font-medium">
+                          <td className="hidden sm:table-cell px-8 py-6 text-sm text-gray-600 dark:text-gray-400 font-medium">
                             {new Date(note.createdAt).toLocaleDateString()}
                           </td>
                           <td className="px-8 py-6 text-right">
-                            <div className="flex items-center justify-end space-x-2">
+                            <div className="flex items-center justify-end space-x-1 sm:space-x-2">
                               <motion.button
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   navigate(`/note/${note.id}`);
                                 }}
-                                className="p-2 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900 rounded-lg shadow-lg"
+                                className="p-1 sm:p-2 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900 rounded-lg shadow-lg"
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
                                 title="Edit note"
                               >
-                                <Edit className="w-4 h-4" />
+                                <Edit className="w-3 h-3 sm:w-4 sm:h-4" />
                               </motion.button>
                               <motion.button
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   handleDeleteNote(note.id);
                                 }}
-                                className="p-2 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900 rounded-lg shadow-lg"
+                                className="p-1 sm:p-2 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900 rounded-lg shadow-lg"
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
                                 title="Delete note"
                               >
-                                <Trash2 className="w-4 h-4" />
+                                <Trash2 className="w-3 h-3 sm:w-4 sm:h-4" />
                               </motion.button>
                             </div>
                           </td>
@@ -599,35 +600,35 @@ export default function NotesViewer() {
           {/* Enhanced Stats */}
           {notes.length > 0 && (
             <motion.div
-              className="mt-12 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl p-8 shadow-xl border border-blue-200/50 dark:border-blue-800/50"
+              className="mt-12 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl p-4 sm:p-8 shadow-xl border border-blue-200/50 dark:border-blue-800/50"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-                <div className="bg-white/50 dark:bg-gray-800/50 rounded-xl p-4 shadow-lg">
-                  <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">{filteredNotes.length}</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 text-center">
+                <div className="bg-white/50 dark:bg-gray-800/50 rounded-xl p-3 sm:p-4 shadow-lg">
+                  <div className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-1">{filteredNotes.length}</div>
+                  <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 font-medium">
                     {hasActiveFilters ? 'Filtered' : 'Total'} Notes
                   </div>
                 </div>
-                <div className="bg-white/50 dark:bg-gray-800/50 rounded-xl p-4 shadow-lg">
-                  <div className="text-3xl font-bold text-green-600 mb-1">
+                <div className="bg-white/50 dark:bg-gray-800/50 rounded-xl p-3 sm:p-4 shadow-lg">
+                  <div className="text-2xl sm:text-3xl font-bold text-green-600 mb-1">
                     {filteredNotes.filter(n => n.difficulty === 'Easy').length}
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Easy</div>
+                  <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 font-medium">Easy</div>
                 </div>
-                <div className="bg-white/50 dark:bg-gray-800/50 rounded-xl p-4 shadow-lg">
-                  <div className="text-3xl font-bold text-yellow-600 mb-1">
+                <div className="bg-white/50 dark:bg-gray-800/50 rounded-xl p-3 sm:p-4 shadow-lg">
+                  <div className="text-2xl sm:text-3xl font-bold text-yellow-600 mb-1">
                     {filteredNotes.filter(n => n.difficulty === 'Medium').length}
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Medium</div>
+                  <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 font-medium">Medium</div>
                 </div>
-                <div className="bg-white/50 dark:bg-gray-800/50 rounded-xl p-4 shadow-lg">
-                  <div className="text-3xl font-bold text-red-600 mb-1">
+                <div className="bg-white/50 dark:bg-gray-800/50 rounded-xl p-3 sm:p-4 shadow-lg">
+                  <div className="text-2xl sm:text-3xl font-bold text-red-600 mb-1">
                     {filteredNotes.filter(n => n.difficulty === 'Difficult').length}
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Difficult</div>
+                  <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 font-medium">Difficult</div>
                 </div>
               </div>
             </motion.div>

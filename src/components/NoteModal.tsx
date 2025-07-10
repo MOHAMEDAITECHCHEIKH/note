@@ -103,7 +103,7 @@ export default function NoteModal({ note, isOpen, onClose }: NoteModalProps) {
                     Content
                   </h3>
                   <div className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-700 dark:to-blue-900/20 rounded-2xl p-6 shadow-inner border border-gray-200/50 dark:border-gray-600/50">
-                    <p className="text-gray-900 dark:text-gray-100 whitespace-pre-wrap leading-relaxed text-base">
+                    <p className="text-gray-900 dark:text-gray-100 whitespace-pre-wrap leading-relaxed text-base break-words overflow-wrap-anywhere">
                       {note.content}
                     </p>
                   </div>

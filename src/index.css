@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom utilities for better text wrapping */
+@layer utilities {
+  .overflow-wrap-anywhere {
+    overflow-wrap: anywhere;
+  }
+  
+  .break-anywhere {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+}
+
+/* Ensure smooth animations and prevent layout shifts */
+* {
+  box-sizing: border-box;
+}
+
+/* Better mobile text handling */
+@media (max-width: 640px) {
+  .break-mobile {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+  }
+}
