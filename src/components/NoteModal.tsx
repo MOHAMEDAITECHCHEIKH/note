@@ -66,19 +66,19 @@ export default function NoteModal({ note, isOpen, onClose }: NoteModalProps) {
               {/* Header */}
               <div className="flex items-start justify-between p-8 border-b border-gray-200/50 dark:border-gray-700/50">
                 <div className="flex-1 pr-6">
-                  <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
+                  <h2 className="text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-6 leading-tight">
                     {note.title}
                   </h2>
-                  <div className="flex items-center space-x-6 text-sm text-gray-500 dark:text-gray-400">
-                    <div className="flex items-center bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-lg">
+                  <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+                    <div className="flex items-center bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-xl shadow-lg">
                       <Calendar className="w-4 h-4 mr-2" />
                       <span className="font-medium">Created: {new Date(note.createdAt).toLocaleDateString()}</span>
                     </div>
-                    <div className="flex items-center bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-lg">
+                    <div className="flex items-center bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-xl shadow-lg">
                       <Clock className="w-4 h-4 mr-2" />
                       <span className="font-medium">Updated: {new Date(note.updatedAt).toLocaleDateString()}</span>
                     </div>
-                    <div className="flex items-center bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-lg">
+                    <div className="flex items-center bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-xl shadow-lg">
                       <FolderOpen className="w-4 h-4 mr-2" />
                       <span className="font-medium">{note.category}</span>
                     </div>
@@ -86,11 +86,11 @@ export default function NoteModal({ note, isOpen, onClose }: NoteModalProps) {
                 </div>
                 <motion.button
                   onClick={onClose}
-                  className="p-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-xl transition-all shadow-lg"
+                  className="p-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-xl transition-all shadow-xl hover:shadow-2xl"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-7 h-7" />
                 </motion.button>
               </div>
 
@@ -98,12 +98,12 @@ export default function NoteModal({ note, isOpen, onClose }: NoteModalProps) {
               <div className="p-8 space-y-8">
                 {/* Note Content */}
                 <div>
-                  <h3 className="text-lg font-bold text-gray-700 dark:text-gray-300 mb-4 flex items-center">
-                    <Star className="w-5 h-5 mr-2 text-blue-500" />
+                  <h3 className="text-xl font-bold text-gray-700 dark:text-gray-300 mb-6 flex items-center">
+                    <Star className="w-6 h-6 mr-3 text-blue-500" />
                     Content
                   </h3>
-                  <div className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-700 dark:to-blue-900/20 rounded-2xl p-6 shadow-inner border border-gray-200/50 dark:border-gray-600/50">
-                    <p className="text-gray-900 dark:text-gray-100 whitespace-pre-wrap leading-relaxed text-base break-words overflow-wrap-anywhere">
+                  <div className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-700 dark:to-blue-900/20 rounded-3xl p-8 shadow-inner border border-gray-200/50 dark:border-gray-600/50">
+                    <p className="text-gray-900 dark:text-gray-100 whitespace-pre-wrap leading-relaxed text-lg break-words overflow-wrap-anywhere">
                       {note.content}
                     </p>
                   </div>
@@ -113,9 +113,9 @@ export default function NoteModal({ note, isOpen, onClose }: NoteModalProps) {
                 <div className="grid md:grid-cols-2 gap-8">
                   {/* Difficulty */}
                   <div>
-                    <h3 className="text-lg font-bold text-gray-700 dark:text-gray-300 mb-4">Difficulty Level</h3>
+                    <h3 className="text-xl font-bold text-gray-700 dark:text-gray-300 mb-6">Difficulty Level</h3>
                     <div className="flex items-center">
-                      <span className={`inline-flex px-4 py-2 rounded-xl text-sm font-bold border-2 shadow-lg ${difficultyColors[note.difficulty]}`}>
+                      <span className={`inline-flex px-6 py-3 rounded-xl text-base font-bold border-2 shadow-xl ${difficultyColors[note.difficulty]}`}>
                         {note.difficulty}
                       </span>
                     </div>
@@ -123,13 +123,13 @@ export default function NoteModal({ note, isOpen, onClose }: NoteModalProps) {
 
                   {/* Tags */}
                   <div>
-                    <h3 className="text-lg font-bold text-gray-700 dark:text-gray-300 mb-4">Tags</h3>
+                    <h3 className="text-xl font-bold text-gray-700 dark:text-gray-300 mb-6">Tags</h3>
                     {note.tags.length > 0 ? (
                       <div className="flex flex-wrap gap-3">
                         {note.tags.map((tagName) => (
                           <motion.span
                             key={tagName}
-                            className="px-3 py-2 rounded-xl text-sm font-semibold text-white shadow-lg"
+                            className="px-4 py-2 rounded-xl text-base font-semibold text-white shadow-xl"
                             style={{ backgroundColor: getTagColor(tagName) }}
                             whileHover={{ scale: 1.05 }}
                           >
@@ -138,7 +138,7 @@ export default function NoteModal({ note, isOpen, onClose }: NoteModalProps) {
                         ))}
                       </div>
                     ) : (
-                      <span className="text-gray-500 dark:text-gray-400 text-sm italic bg-gray-100 dark:bg-gray-700 px-3 py-2 rounded-lg">
+                      <span className="text-gray-500 dark:text-gray-400 text-base italic bg-gray-100 dark:bg-gray-700 px-4 py-3 rounded-xl shadow-lg">
                         No tags assigned
                       </span>
                     )}
@@ -147,23 +147,23 @@ export default function NoteModal({ note, isOpen, onClose }: NoteModalProps) {
               </div>
 
               {/* Enhanced Actions */}
-              <div className="flex justify-end space-x-4 p-8 border-t border-gray-200/50 dark:border-gray-700/50 bg-gray-50/50 dark:bg-gray-700/50 rounded-b-3xl">
+              <div className="flex flex-col sm:flex-row justify-end gap-4 p-8 border-t border-gray-200/50 dark:border-gray-700/50 bg-gray-50/50 dark:bg-gray-700/50 rounded-b-3xl">
                 <motion.button
                   onClick={handleEdit}
-                  className="flex items-center space-x-3 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl font-semibold"
+                  className="flex items-center justify-center space-x-3 px-8 py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 text-white rounded-xl hover:from-blue-700 hover:via-purple-700 hover:to-cyan-700 transition-all shadow-xl hover:shadow-2xl font-bold text-lg"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Edit className="w-5 h-5" />
+                  <Edit className="w-6 h-6" />
                   <span>Edit Note</span>
                 </motion.button>
                 <motion.button
                   onClick={handleDelete}
-                  className="flex items-center space-x-3 px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white rounded-xl hover:from-red-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-xl font-semibold"
+                  className="flex items-center justify-center space-x-3 px-8 py-4 bg-gradient-to-r from-rose-600 to-pink-600 text-white rounded-xl hover:from-rose-700 hover:to-pink-700 transition-all shadow-xl hover:shadow-2xl font-bold text-lg"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Trash2 className="w-5 h-5" />
+                  <Trash2 className="w-6 h-6" />
                   <span>Delete Note</span>
                 </motion.button>
               </div>
