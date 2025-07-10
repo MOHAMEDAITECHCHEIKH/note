@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom utilities for better text wrapping */
+/* Enhanced custom utilities for better text wrapping and performance */
 @layer utilities {
   .overflow-wrap-anywhere {
     overflow-wrap: anywhere;
@@ -12,18 +12,102 @@
     word-break: break-word;
     overflow-wrap: anywhere;
   }
+
+  .shadow-3xl {
+    box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  .backdrop-blur-xl {
+    backdrop-filter: blur(16px);
+  }
 }
 
-/* Ensure smooth animations and prevent layout shifts */
+/* Enhanced smooth animations and prevent layout shifts */
 * {
   box-sizing: border-box;
 }
 
-/* Better mobile text handling */
+/* Optimized scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced mobile text handling */
 @media (max-width: 640px) {
   .break-mobile {
     word-break: break-word;
     overflow-wrap: anywhere;
     hyphens: auto;
+  }
+}
+
+/* Enhanced focus states for accessibility */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #3B82F6;
+  outline-offset: 2px;
+}
+
+/* Smooth transitions for all interactive elements */
+button,
+input,
+select,
+textarea {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced loading states */
+.loading {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .5;
+  }
+}
+
+/* Performance optimizations */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* Enhanced dark mode transitions */
+.dark * {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Improved text rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Enhanced gradient backgrounds */
+.gradient-mesh {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
